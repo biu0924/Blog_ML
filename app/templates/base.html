@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>{% block title %}{% endblock %} - Blog</title>
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="{{ url_for('blog.index') }}">Blog</a>
+        <div class="navbar-nav">
+            {% if current_user.is_anonymous %}
+            <a class="nav-item nav-link" href="{{ url_for('auth.login') }}">Login</a>
+            <a class="nav-item nav-link" href="{{ url_for('auth.register') }}">Register</a>
+            {% else %}
+            <a class="nav-item nav-link" href="{{ url_for('blog.create_post') }}">Create Post</a>
+            <a class="nav-item nav-link" href="{{ url_for('blog.user_posts', username=current_user.username) }}">My Posts</a>
+
+            <a class="nav-item nav-link" href="{{ url_for('blog.profile') }}">Profile</a>
+
+            <a class="nav-item nav-link" href="{{ url_for('auth.logout') }}">Logout</a>
+            {% endif %}
+        </div>
+    </nav>
+    <main class="container">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <div class="alert alert-info" role="alert">
+            {{ messages[0] }}
+        </div>
+        {% endif %}
+        {% endwith %}
+        {% block content %}{% endblock %}
+    </main>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

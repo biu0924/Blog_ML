@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block title %}{% if post %}Edit Post{% else %}Create Post{% endif %}{% endblock %}
+
+{% block extra_head %}
+<script src="https://cdn.tiny.cloud/1/qfbi3ecnb1pbvotz938610mobvkrl5pyjc2i0k288r5rkes8/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+<script>
+    tinymce.init({
+        selector: '#content',
+        plugins: 'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+        toolbar_mode: 'floating',
+        tinycomments_mode: 'floating',
+        {#tinycomments_author: 'Author name',#}
+        height: 500,
+        setup: function(editor) {
+            editor.on('input', function () {
+                const content = editor.getContent();
+                const wordCount = content.replace(/<\/?[^>]+(>|$)/g, "").trim().split(/\s+/).length;
+                document.getElementById('word-count').textContent = `Word count: ${wordCount}`;
+            });
+        }
+    });
+</script>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>{% if post %}Edit{% else %}Create a New{% endif %} Post</h1>
+    <form method="post">
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+            {{ form.title.label }}
+            {{ form.title(class="form-control") }}
+        </div>
+        <div class="form-group">
+            {{ form.content.label }}
+            {{ form.content(class="form-control") }}
+        </div>
+        <div id="word-count"></div>
+        {{ form.submit(class="btn btn-primary") }}
+    </form>
+</div>
+{% endblock %}
+
+{#{% block content %}#}
+{#    <h1>{% if post %}Edit{% else %}Create a New{% endif %} Post</h1>#}
+{#    <form action="" method="post" enctype="multipart/form-data">#}
+{#        <div class="form-group">#}
+{#            <label for="title">Title</label>#}
+{#            <input type="text" class="form-control" id="title" name="title" value="{{ post.title if post else '' }}" required>#}
+{#        </div>#}
+{#        <div class="form-group">#}
+{#            <label for="content">Content</label>#}
+{#            <textarea class="form-control" id="content" name="content" rows="10" required>{{ post.content if post else '' }}</textarea>#}
+{#        </div>#}
+{#        <button type="submit" class="btn btn-primary">{% if post %}Update{% else %}Publish{% endif %}</button>#}
+{#    </form>#}
+{#{% endblock %}#}
+
+{#{% block content %}#}
+{#    <h1>Create a New Post</h1>#}
+{#    <form action="" method="post">#}
+{#        <div class="form-group">#}
+{#            <label for="title">Title</label>#}
+{#            <input type="text" class="form-control" id="title" name="title" required>#}
+{#        </div>#}
+{#        <div class="form-group">#}
+{#            <label for="content">Content</label>#}
+{#            <textarea class="form-control" id="content" name="content" rows="5" required></textarea>#}
+{#        </div>#}
+{#        <button type="submit" class="btn btn-primary">Publish</button>#}
+{#    </form>#}
+{#{% endblock %}#}

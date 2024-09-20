@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="list-group">
+                <a href="{{ url_for('blog.profile') }}" class="list-group-item list-group-item-action">Profile</a>
+                <a href="{{ url_for('blog.change_avatar') }}" class="list-group-item list-group-item-action active">Change Avatar</a>
+                <a href="{{ url_for('blog.change_password') }}" class="list-group-item list-group-item-action">Change Password</a>
+                <a href="{{ url_for('blog.change_email') }}" class="list-group-item list-group-item-action">Change Email</a>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <h2>Change Avatar</h2>
+            <form method="post" enctype="multipart/form-data">
+                {{ form.hidden_tag() }}
+                <div class="form-group">
+                    {{ form.avatar.label }}
+                    {{ form.avatar(class="form-control-file") }}
+                </div>
+                {{ form.submit(class="btn btn-primary") }}
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,83 @@
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+nav {
+    background-color: #f4f4f4;
+    padding: 10px;
+}
+
+nav a {
+    color: #333;
+    text-decoration: none;
+    padding: 5px 10px;
+}
+
+nav a:hover {
+    color: #666;
+}
+
+.post-content {
+    margin-top: 20px;
+}
+
+form {
+    margin-top: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.btn {
+    display: inline-block;
+    background: #333;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background: #444;
+}
+
+/* 添加到现有的 style.css 文件末尾 */
+
+.tox-tinymce {
+    border: 1px solid #ddd !important;
+    border-radius: 4px !important;
+}
+
+#word-count {
+    margin-top: 10px;
+    font-size: 0.9em;
+    color: #666;
+}
+
+.mce-content-body {
+    font-size: 16px;
+    line-height: 1.6;
+}

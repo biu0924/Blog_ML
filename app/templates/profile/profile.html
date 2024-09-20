@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="list-group">
+                <a href="{{ url_for('blog.profile') }}" class="list-group-item list-group-item-action active">Profile</a>
+                <a href="{{ url_for('blog.change_avatar') }}" class="list-group-item list-group-item-action">Change Avatar</a>
+                <a href="{{ url_for('blog.change_password') }}" class="list-group-item list-group-item-action">Change Password</a>
+                <a href="{{ url_for('blog.change_email') }}" class="list-group-item list-group-item-action">Change Email</a>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <h2>User Profile</h2>
+            <img src="{{ url_for('static', filename='uploads/' + current_user.avatar) }}" alt="Avatar" class="img-fluid rounded-circle mb-3" style="max-width: 200px;">
+            <h3>{{ current_user.username }}</h3>
+            <p>Email: {{ current_user.email }}</p>
+            <p>Member since: {{ current_user.date_joined.strftime('%Y-%m-%d') }}</p>
+            <p>Total posts: {{ current_user.posts.count() }}</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

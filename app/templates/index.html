@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    {% if current_user.is_authenticated %}
+        <div class="row">
+            <div class="col-md-4">
+                <img src="{{ url_for('static', filename='uploads/' + current_user.avatar) }}" alt="Avatar" class="img-fluid rounded-circle mb-3" style="max-width: 100px;">
+            </div>
+            <div class="col-md-8">
+                <h1>Welcome, {{ current_user.username }}!</h1>
+            </div>
+        </div>
+    {% else %}
+        <h1>Welcome to our Blog!</h1>
+    {% endif %}
+
+<form class="mb-4" method="get">
+    <div class="input-group">
+        <input type="text" class="form-control" name="search" placeholder="Search posts..." value="{{ search }}">
+        <select class="custom-select" name="sort">
+            <option value="recent" {% if sort == 'recent' %}selected{% endif %}>Most Recent</option>
+            <option value="likes" {% if sort == 'likes' %}selected{% endif %}>Most Liked</option>
+        </select>
+        <div class="input-group-append">
+            <button class="btn btn-outline-secondary" type="submit">Search & Sort</button>
+        </div>
+    </div>
+</form>
+
+{% for post in posts.items %}
+<div class="card mb-3">
+    <div class="card-body">
+        <h2 class="card-title">{{ post.title }}</h2>
+        <p>{{ post.content[:200] }}...</p>
+        <a href="{{ url_for('blog.post', id=post.id) }}" class="btn btn-primary">Read more</a>
+        {% if current_user == post.author %}
+        <a href="{{ url_for('blog.edit_post', id=post.id) }}" class="btn btn-secondary">Edit</a>
+        {% endif %}
+        <span class="float-right">
+            Likes: {{ post.like_count() }}
+            {% if current_user.is_authenticated %}
+                {% if current_user.likes.filter_by(post_id=post.id).first() %}
+                    <a href="{{ url_for('blog.like_action', post_id=post.id, action='unlike') }}">Unlike</a>
+                {% else %}
+                    <a href="{{ url_for('blog.like_action', post_id=post.id, action='like') }}">Like</a>
+                {% endif %}
+            {% endif %}
+        </span>
+        <p class="small">Posted by {{ post.author.username }} on {{ post.timestamp }}</p>
+    </div>
+</div>
+{% endfor %}
+
+<nav aria-label="Page navigation">
+    <ul class="pagination">
+        {% for page in posts.iter_pages() %}
+            {% if page %}
+                <li class="page-item {% if page == posts.page %}active{% endif %}">
+                    <a class="page-link" href="{{ url_for('blog.index', page=page, search=search, sort=sort) }}">{{ page }}</a>
+                </li>
+            {% else %}
+                <li class="page-item disabled"><span class="page-link">...</span></li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+</nav>
+{% endblock %}

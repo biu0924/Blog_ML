@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h1>Reply to Comment</h1>
+    <div class="card mb-3">
+        <div class="card-body">
+            <p class="card-text">{{ parent.body }}</p>
+            <p class="card-text"><small class="text-muted">Posted by {{ parent.user.username }}</small></p>
+        </div>
+    </div>
+    <form method="post">
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+            {{ form.body.label }}
+            {{ form.body(class="form-control") }}
+        </div>
+        {{ form.submit(class="btn btn-primary") }}
+    </form>
+</div>
+{% endblock %}
