@@ -40,8 +40,6 @@
                 </form>
                 {% endif %}
                  <a href="{{ url_for('blog.reply_comment', id=comment.id) }}" class="btn btn-sm btn-info">Reply</a>
-{#                <button class="btn btn-sm btn-success vote-btn" data-id="{{ comment.id }}" data-action="like">Like ({{ comment.likes }})</button>#}
-{#                <button class="btn btn-sm btn-danger vote-btn" data-id="{{ comment.id }}" data-action="dislike">Dislike ({{ comment.dislikes }})</button>#}
                 <button class="btn btn-sm btn-outline-success vote-btn {% if comment.user_vote(current_user) == 'like' %}active{% endif %}" data-id="{{ comment.id }}" data-action="like">Like ({{ comment.like_count() }})</button>
                 <button class="btn btn-sm btn-outline-danger vote-btn {% if comment.user_vote(current_user) == 'dislike' %}active{% endif %}" data-id="{{ comment.id }}" data-action="dislike">Dislike ({{ comment.dislike_count() }})</button>
 

@@ -1,45 +1,198 @@
-<!-- templates/admin/stats.html -->
+{#<!-- templates/admin/stats.html -->#}
+{#{% extends "admin/admin_base.html" %}#}
+{#{% block content %}#}
+{#<h1>Site Statistics</h1>#}
+{#<a href="{{ url_for('admin.admin_index') }}" class="btn btn-primary">Admin Home</a>#}
+{##}
+{#<div class="row">#}
+{#    <div class="col-md-4">#}
+{#        <h3>Overall Stats</h3>#}
+{#        <ul>#}
+{#            <li>Total Users: {{ total_users }}</li>#}
+{#            <li>Total Posts: {{ total_posts }}</li>#}
+{#            <li>Total Comments: {{ total_comments }}</li>#}
+{#        </ul>#}
+{#    </div>#}
+{#    <div class="col-md-4">#}
+{#        <h3>Last 7 Days</h3>#}
+{#        <ul>#}
+{#            <li>New Users: {{ new_users_last_week }}</li>#}
+{#            <li>New Posts: {{ new_posts_last_week }}</li>#}
+{#        </ul>#}
+{#    </div>#}
+{#</div>#}
+{#<div class="row mt-4">#}
+{#    <div class="col-md-6">#}
+{#        <h3>Most Active Users</h3>#}
+{#        <ol>#}
+{#            {% for user, post_count in active_users %}#}
+{#            <li>{{ user.username }} ({{ post_count }} posts)</li>#}
+{#            {% endfor %}#}
+{#        </ol>#}
+{#    </div>#}
+{#    <div class="col-md-6">#}
+{#        <h3>Most Popular Posts</h3>#}
+{#        <ol>#}
+{#            {% for post, comment_count in popular_posts %}#}
+{#            <li>#}
+{#                <a href="{{ url_for('blog.post', id=post.id) }}">{{ post.title }}</a>#}
+{#                ({{ comment_count }} comments)#}
+{#            </li>#}
+{#            {% endfor %}#}
+{#        </ol>#}
+{#    </div>#}
+{#</div>#}
+{#{% endblock %}#}
+
+
 {% extends "admin/admin_base.html" %}
 {% block content %}
-<h1>Site Statistics</h1>
-<a href="{{ url_for('admin.admin_index') }}" class="btn btn-primary">Admin Home</a>
+
+<h1 class="mb-4">Site Statistics</h1>
 
 <div class="row">
-    <div class="col-md-4">
-        <h3>Overall Stats</h3>
-        <ul>
-            <li>Total Users: {{ total_users }}</li>
-            <li>Total Posts: {{ total_posts }}</li>
-            <li>Total Comments: {{ total_comments }}</li>
-        </ul>
+    <div class="col-md-6 mb-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Overall Stats</h5>
+                <canvas id="overallStatsChart"></canvas>
+            </div>
+        </div>
     </div>
-    <div class="col-md-4">
-        <h3>Last 7 Days</h3>
-        <ul>
-            <li>New Users: {{ new_users_last_week }}</li>
-            <li>New Posts: {{ new_posts_last_week }}</li>
-        </ul>
-    </div>
-</div>
-<div class="row mt-4">
-    <div class="col-md-6">
-        <h3>Most Active Users</h3>
-        <ol>
-            {% for user, post_count in active_users %}
-            <li>{{ user.username }} ({{ post_count }} posts)</li>
-            {% endfor %}
-        </ol>
-    </div>
-    <div class="col-md-6">
-        <h3>Most Popular Posts</h3>
-        <ol>
-            {% for post, comment_count in popular_posts %}
-            <li>
-                <a href="{{ url_for('blog.post', id=post.id) }}">{{ post.title }}</a>
-                ({{ comment_count }} comments)
-            </li>
-            {% endfor %}
-        </ol>
+    <div class="col-md-6 mb-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Last 7 Days</h5>
+                <canvas id="weeklyStatsChart"></canvas>
+            </div>
+        </div>
     </div>
 </div>
+
+<div class="row">
+    <div class="col-md-6 mb-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Most Active Users</h5>
+                <canvas id="activeUsersChart"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 mb-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Most Popular Posts</h5>
+                <canvas id="popularPostsChart"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // Overall Stats Chart
+    var ctx = document.getElementById('overallStatsChart').getContext('2d');
+    var overallStatsChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Users', 'Posts', 'Comments'],
+            datasets: [{
+                data: [{{ total_users }}, {{ total_posts }}, {{ total_comments }}],
+                backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56']
+            }]
+        },
+        options: {
+            responsive: true,
+            title: {
+                display: true,
+                text: 'Overall Statistics'
+            }
+        }
+    });
+
+    // Weekly Stats Chart
+    var ctx = document.getElementById('weeklyStatsChart').getContext('2d');
+    var weeklyStatsChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['New Users', 'New Posts'],
+            datasets: [{
+                label: 'Last 7 Days',
+                data: [{{ new_users_last_week }}, {{ new_posts_last_week }}],
+                backgroundColor: ['#FF6384', '#36A2EB']
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+        // Active Users Chart
+    var ctx = document.getElementById('activeUsersChart').getContext('2d');
+    var activeUsersChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: [
+                {% for user, post_count in active_users %}
+                    "{{ user.username }}",
+                {% endfor %}
+            ],
+            datasets: [{
+                label: 'Posts',
+                data: [
+                    {% for user, post_count in active_users %}
+                        {{ post_count }},
+                    {% endfor %}
+                ],
+                backgroundColor: 'rgba(54, 162, 235, 0.6)'
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            },
+            indexAxis: 'y'
+        }
+    });
+
+    // Popular Posts Chart
+    var ctx = document.getElementById('popularPostsChart').getContext('2d');
+    var popularPostsChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: [
+                {% for post, comment_count in popular_posts %}
+                    "{{ post.title[:20] }}...",
+                {% endfor %}
+            ],
+            datasets: [{
+                label: 'Comments',
+                data: [
+                    {% for post, comment_count in popular_posts %}
+                        {{ comment_count }},
+                    {% endfor %}
+                ],
+                backgroundColor: 'rgba(255, 99, 132, 0.6)'
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            },
+            indexAxis: 'y'
+        }
+    });
+</script>
+
 {% endblock %}

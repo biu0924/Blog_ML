@@ -1,91 +1,205 @@
+/*body {*/
+/*    font-family: Arial, sans-serif;*/
+/*    line-height: 1.6;*/
+/*    margin: 0;*/
+/*    padding: 0;*/
+/*}*/
+
+/*.container {*/
+/*    max-width: 800px;*/
+/*    margin: 0 auto;*/
+/*    padding: 20px;*/
+/*}*/
+
+/*nav {*/
+/*    background-color: #f4f4f4;*/
+/*    padding: 10px;*/
+/*}*/
+
+/*nav a {*/
+/*    color: #333;*/
+/*    text-decoration: none;*/
+/*    padding: 5px 10px;*/
+/*}*/
+
+/*nav a:hover {*/
+/*    color: #666;*/
+/*}*/
+
+/*.post-content {*/
+/*    margin-top: 20px;*/
+/*}*/
+
+/*form {*/
+/*    margin-top: 20px;*/
+/*}*/
+
+/*.form-group {*/
+/*    margin-bottom: 15px;*/
+/*}*/
+
+/*.form-group label {*/
+/*    display: block;*/
+/*    margin-bottom: 5px;*/
+/*}*/
+
+/*.form-group input,*/
+/*.form-group textarea {*/
+/*    width: 100%;*/
+/*    padding: 8px;*/
+/*    border: 1px solid #ddd;*/
+/*    border-radius: 4px;*/
+/*}*/
+
+/*.btn {*/
+/*    display: inline-block;*/
+/*    background: #333;*/
+/*    color: #fff;*/
+/*    padding: 10px 20px;*/
+/*    border: none;*/
+/*    cursor: pointer;*/
+/*}*/
+
+/*.btn:hover {*/
+/*    background: #444;*/
+/*}*/
+
+/*!* 添加到现有的 style.css 文件末尾 *!*/
+
+/*.tox-tinymce {*/
+/*    border: 1px solid #ddd !important;*/
+/*    border-radius: 4px !important;*/
+/*}*/
+
+/*#word-count {*/
+/*    margin-top: 10px;*/
+/*    font-size: 0.9em;*/
+/*    color: #666;*/
+/*}*/
+
+/*.mce-content-body {*/
+/*    font-size: 16px;*/
+/*    line-height: 1.6;*/
+/*}*/
+
+/*.admin-panel {*/
+/*    position: fixed;*/
+/*    top: 5px;*/
+/*    right: 20px;*/
+/*    z-index: 1000;*/
+/*}*/
+
+:root {
+  --primary-color: #3498db;
+  --secondary-color: #2c3e50;
+  --accent-color: #e74c3c;
+  --background-color: #f4f4f4;
+  --text-color: #333;
+  --light-text-color: #f4f4f4;
+  --border-color: #ddd;
+  --box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
 body {
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
-    margin: 0;
-    padding: 0;
+  font-family: 'Roboto', sans-serif;
+  line-height: 1.6;
+  color: var(--text-color);
+  background-color: var(--background-color);
 }
 
 .container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
 }
 
-nav {
-    background-color: #f4f4f4;
-    padding: 10px;
+/* Navbar styles */
+.navbar {
+  background-color: var(--secondary-color);
+  padding: 15px 0;
 }
 
-nav a {
-    color: #333;
-    text-decoration: none;
-    padding: 5px 10px;
+.navbar-brand {
+  color: var(--light-text-color) !important;
+  font-size: 1.5rem;
+  font-weight: bold;
 }
 
-nav a:hover {
-    color: #666;
+.navbar-nav .nav-link {
+  color: var(--light-text-color) !important;
+  transition: opacity 0.3s;
 }
 
-.post-content {
-    margin-top: 20px;
+.navbar-nav .nav-link:hover {
+  opacity: 0.8;
 }
 
-form {
-    margin-top: 20px;
+/* Card styles */
+.card {
+  border: none;
+  border-radius: 8px;
+  box-shadow: var(--box-shadow);
+  transition: transform 0.3s;
 }
 
-.form-group {
-    margin-bottom: 15px;
+.card:hover {
+  transform: translateY(-5px);
 }
 
-.form-group label {
-    display: block;
-    margin-bottom: 5px;
+.card-title {
+  color: var(--primary-color);
 }
 
-.form-group input,
-.form-group textarea {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-}
-
+/* Button styles */
 .btn {
-    display: inline-block;
-    background: #333;
-    color: #fff;
-    padding: 10px 20px;
-    border: none;
-    cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.3s;
 }
 
-.btn:hover {
-    background: #444;
+.btn-primary {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
 }
 
-/* 添加到现有的 style.css 文件末尾 */
-
-.tox-tinymce {
-    border: 1px solid #ddd !important;
-    border-radius: 4px !important;
+.btn-primary:hover {
+  background-color: darken(var(--primary-color), 10%);
+  border-color: darken(var(--primary-color), 10%);
 }
 
-#word-count {
-    margin-top: 10px;
-    font-size: 0.9em;
-    color: #666;
+/* Form styles */
+.form-control {
+  border-radius: 4px;
+  border: 1px solid var(--border-color);
 }
 
-.mce-content-body {
-    font-size: 16px;
-    line-height: 1.6;
+.form-control:focus {
+  box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
 }
 
-.admin-panel {
-    position: fixed;
-    top: 5px;
-    right: 20px;
-    z-index: 1000;
+/* Admin panel styles */
+.admin-header {
+  background-color: var(--secondary-color);
+  color: var(--light-text-color);
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
 }
 
+.admin-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: var(--box-shadow);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .container {
+    padding: 10px;
+  }
+
+  .navbar-nav {
+    flex-direction: row;
+    justify-content: space-around;
+  }
+}
