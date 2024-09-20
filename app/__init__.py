@@ -30,4 +30,8 @@ def create_app():
     app.register_blueprint(auth.bp)
     app.register_blueprint(blog.bp)
 
+    # 在 __init__.py 或主应用文件中
+    from app.routes import admin as admin_blueprint
+    app.register_blueprint(admin_blueprint.admin)
+
     return app

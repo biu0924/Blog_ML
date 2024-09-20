@@ -1,0 +1,31 @@
+<!-- templates/admin/user_list.html -->
+{% extends "base.html" %}
+{% block content %}
+<h1>User Management</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in users %}
+        <tr>
+            <td>{{ user.id }}</td>
+            <td>{{ user.username }}</td>
+            <td>{{ user.email }}</td>
+            <td>
+                <a href="{{ url_for('admin.edit_user', id=user.id) }}" class="btn btn-sm btn-primary">Edit</a>
+                <form action="{{ url_for('admin.delete_user', id=user.id) }}" method="post" style="display:inline;">
+                    <input type="submit" value="Delete" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?');">
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
+

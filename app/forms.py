@@ -4,6 +4,9 @@ from wtforms import StringField, TextAreaField, SubmitField, PasswordField
 from wtforms.validators import DataRequired, Email, EqualTo, ValidationError
 from app.models import User
 
+from flask_wtf import FlaskForm
+from wtforms import StringField, BooleanField
+from wtforms.validators import DataRequired, Email
 class PostForm(FlaskForm):
     title = StringField("Title", validators=[DataRequired()])
     content = TextAreaField("Content", validators=[DataRequired()])
@@ -36,3 +39,9 @@ class CommentForm(FlaskForm):
 class ReplyForm(FlaskForm):
     body = TextAreaField('Reply', validators=[DataRequired()])
     submit = SubmitField('Post Reply')
+
+
+class UserForm(FlaskForm):
+    username = StringField('Username', validators=[DataRequired()])
+    email = StringField('Email', validators=[DataRequired(), Email()])
+    is_admin = BooleanField('Admin')
