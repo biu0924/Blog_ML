@@ -1,10 +1,6 @@
-<!-- templates/admin/index.html -->
-{% extends "base.html" %}
-{% block content %}
-<h1>Admin Dashboard</h1>
-<ul>
-    <li><a href="{{ url_for('admin.user_list') }}">Manage Users</a></li>
-    <!-- 其他管理链接 -->
-</ul>
-{% endblock %}
+{% extends "admin/admin_base.html" %}
 
+{% block admin_content %}
+<h2>Welcome to the Admin Dashboard</h2>
+<p>Select an option from the navigation menu above to manage different aspects of your site.</p>
+{% endblock %}

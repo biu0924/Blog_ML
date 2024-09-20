@@ -34,13 +34,16 @@ def index():
         query = query.order_by(BlogPost.timestamp.desc())
 
     posts = query.paginate(page=page, per_page=10, error_out=False)
-    return render_template('index.html', title='Home', posts=posts, search=search, sort=sort)
+
+    is_admin = current_user.is_authenticated and current_user.is_admin
+    return render_template('index.html', title='Home', posts=posts, search=search, sort=sort, is_admin=is_admin)
 
 
 @bp.route('/create', methods=['GET', 'POST'])
 @login_required
 def create_post():
     form = PostForm()
+    print(form.content.data)
     if form.validate_on_submit():
         content = bleach.clean(form.content.data, tags=['p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'strong', 'em', 'u', 'a', 'img'], attributes={'a': ['href'], 'img': ['src', 'alt']})
         post = BlogPost(title=form.title.data, content=content, author=current_user)
@@ -235,3 +238,5 @@ def delete_comment(id):
     db.session.commit()
     flash('Your comment has been deleted.', 'success')
     return redirect(url_for('blog.post', id=comment.post_id))
+
+

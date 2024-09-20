@@ -81,3 +81,11 @@ form {
     font-size: 16px;
     line-height: 1.6;
 }
+
+.admin-panel {
+    position: fixed;
+    top: 5px;
+    right: 20px;
+    z-index: 1000;
+}
+

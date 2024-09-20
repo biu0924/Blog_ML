@@ -22,6 +22,11 @@
             <a class="nav-item nav-link" href="{{ url_for('blog.profile') }}">Profile</a>
 
             <a class="nav-item nav-link" href="{{ url_for('auth.logout') }}">Logout</a>
+                {% if is_admin %}
+                <div class="admin-panel">
+                <a href="{{ url_for('admin.admin_index') }}" class="btn btn-primary">Admin Panel</a>
+                </div>
+                {% endif %}
             {% endif %}
         </div>
     </nav>

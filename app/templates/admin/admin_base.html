@@ -1,0 +1,20 @@
+<!-- templates/admin/admin_base.html -->
+{% extends "base.html" %}
+
+{% block content %}
+<div class="admin-header">
+    <h1>Admin Panel</h1>
+    <nav class="admin-nav">
+        <a href="{{ url_for('admin.user_list') }}" class="btn btn-secondary">Users</a>
+        <a href="{{ url_for('admin.post_list') }}" class="btn btn-secondary">Posts</a>
+        <a href="{{ url_for('admin.comment_list') }}" class="btn btn-secondary">Comments</a>
+        <a href="{{ url_for('admin.stats') }}" class="btn btn-secondary">Statistics</a>
+        <a href="{{ url_for('blog.index') }}" class="btn btn-info">Back to Site</a>
+    </nav>
+</div>
+
+<div class="admin-content">
+    {% block admin_content %}
+    {% endblock %}
+</div>
+{% endblock %}

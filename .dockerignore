@@ -1,0 +1,22 @@
+# 忽略虚拟环境
+.venv/
+.vene/
+env/
+ENV/
+
+# 忽略 Git 目录
+.git
+
+# 忽略 Docker 目录中的文件（如果有）
+/docker/Dockerfile
+/docker/docker-compose.yml
+/docker/nginx.conf
+
+# 忽略其他不必要的文件
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.swp
+*.swo
+*.log

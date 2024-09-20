@@ -1,7 +1,8 @@
 <!-- templates/admin/user_list.html -->
-{% extends "base.html" %}
+{% extends "admin/admin_base.html" %}
 {% block content %}
 <h1>User Management</h1>
+<a href="{{ url_for('admin.admin_index') }}" class="btn btn-primary">Admin Home</a>
 <table class="table">
     <thead>
         <tr>
