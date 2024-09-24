@@ -2,6 +2,11 @@
 {% extends "admin/admin_base.html" %}
 {% block content %}
 <h1>Edit User</h1>
+
+<div class="text-center mb-3">
+  <a href="{{ url_for('admin.user_list') }}" class="btn btn-primary">Back</a>
+</div>
+
 <form method="post">
     {{ form.hidden_tag() }}
     <div class="form-group">

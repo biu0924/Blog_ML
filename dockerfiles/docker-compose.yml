@@ -1,0 +1,61 @@
+version: '3.8'
+
+services:
+  web:
+    # 构建 web 服务，制定上下文和 Dockerfile 路径
+    build:
+      context: ..
+      dockerfile: dockerfiles/Dockerfile
+    # 使用 gunicorn 启动应用，监听 8000 端口
+    command: gunicorn -b 0.0.0.0:8000 run:app
+    # 映射容器的 8000 端口到主机的 8000 端口
+    ports:
+      - "8000:8000"
+    # 挂载静态文件目录，以实现本地静态文件与容器的同步
+    volumes:
+      - ../app/static:/app/static
+    # 设置依赖，web 服务依赖于 db 服务
+    depends_on:
+      - db
+    # 传递环境变量，用于 Flask 应用的配置
+    environment:
+      - DATABASE_URL=${DATABASE_URL}
+      - SECRET_KEY=${SECRET_KEY}
+    # 指定从 .env 文件加载环境变量
+    env_file:
+      - .env
+    # 指定容器启动时的入口脚本
+    entrypoint: ["sh", "/app/dockerfiles/entrypoint.sh"]
+
+  db:
+    # 使用 Bitnami 提供的 PostgreSQL 镜像作为数据库服务
+    image: bitnami/postgresql:14.13.0
+    # 设置容器重启策略为 always
+    restart: always
+    # 配置数据库的环境变量
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    # 从 .env 文件加载数据库配置
+    env_file:
+      - .env
+
+ # 如果使用 Nginx 作为反向代理
+  nginx:
+    image: nginx:latest
+    # 映射 Nginx 的 80 和 443 端口
+    ports:
+      - "80:80"
+      # 虽然映射了 443，但是我没用 https
+      - "443:443"
+    volumes:
+      - ./main-nginx.conf:/etc/nginx/nginx.conf
+      - ./server-nginx.conf:/etc/nginx/conf.d/default.conf
+      - ../app/static:/app/static
+    depends_on:
+      - web
+
+volumes:
+  # 为 PostgreSQL 数据库创建一个持久化存储卷
+  postgres_data:

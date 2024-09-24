@@ -7,25 +7,33 @@ from urllib.parse import urlparse
 bp = Blueprint('auth', __name__)
 
 @bp.route("/register", methods=['GET', 'POST'])
-def register():
+def register():# 注册
+    # 如果用户已经注册，重定向到首页
     if current_user.is_authenticated:
         return redirect(url_for('blog.index'))
     if request.method == 'POST':
         username =request.form['username']
         email = request.form['email']
         password = request.form['password']
+
+        # 检查用户名是否存在
         user = User.query.filter_by(username=username).first()
         if user:
             flash("Please use a different username.")
             return redirect(url_for("auth.register"))
+
+        # 检查邮箱是否存在
         user = User.query.filter_by(email=email).first()
         if user:
             flash("Please use a different email address.")
             return redirect(url_for("auth.register"))
+
+        # 创建新用户并保存到数据库
         user = User(username=username, email=email)
         user.set_password(password)
         db.session.add(user)
         db.session.commit()
+
         flash("Congratulations, you are now a registered user!")
         return redirect(url_for('auth.login'))
     return render_template("register.html", title="Register")
@@ -50,6 +58,6 @@ def login():
 
 @bp.route('/logout')
 def logout():
-    logout_user()
+    logout_user()# 登出用户
     return redirect(url_for('blog.index'))
 

@@ -18,11 +18,13 @@ class Config:
         读取环境变量 DATABASE_URL，这是数据库的连接字符串，通常用于指定应用要连接的数据库类型（例如 PostgreSQL、MySQL 等）。
         如果 DATABASE_URL 未设置，程序会回退到使用 SQLite 数据库，并将数据库文件存储在当前项目目录下的 app.db 文件中。
     SQLALCHEMY_TRACK_MODIFICATIONS:
-        设置为 False，禁用 SQLAlchemy 对对象修改的事件通知系统，节省内存和计算资源。这是 Flask-SQLAlchemy 的一个常见设置，推荐将其设为 False。
+        设置为 False，禁用 SQLAlchemy 对对象修改的事件通知系统，节省内存和计算资源。
+        这是 Flask-SQLAlchemy 的一个常见设置，推荐将其设为 False。
     '''
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'you-will-never-guess'
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
         'postgresql://root:123456@localhost:5432/blog'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     UPLOAD_FOLDER = os.path.join(basedir, 'app', 'static', 'uploads')
+    STATIC_FOLDER = os.path.join(basedir, 'app', 'static')
     MAX_CONTENT_LENGTH = 16 * 1024 * 1024  # 16MB ma

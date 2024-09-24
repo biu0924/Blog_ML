@@ -1,15 +1,50 @@
+{#{% extends "base.html" %}#}
+{##}
+{#{% block title %}{% if post %}Edit Post{% else %}Create Post{% endif %}{% endblock %}#}
+{##}
+{#{% block extra_head %}#}
+{##}
+{#{% endblock %}#}
+{##}
+{#{% block content %}#}
+{#<div class="container">#}
+{#    <h1>{% if post %}Edit{% else %}Create a New{% endif %} Post</h1>#}
+{#    <form method="post" onsubmit="tinyMCE.triggerSave(); return true;">#}
+{#        {{ form.hidden_tag() }}#}
+{#        <div class="form-group">#}
+{#            {{ form.title.label }}#}
+{#            {{ form.title(class="form-control") }}#}
+{#        </div>#}
+{#        <div class="form-group">#}
+{#            {{ form.content.label }}#}
+{#            {{ form.content(class="form-control") }}#}
+{#        </div>#}
+{#        <div id="word-count"></div>#}
+{#        {{ form.submit(class="btn btn-primary") }}#}
+{#    </form>#}
+{#</div>#}
+{#{% endblock %}#}
+{##}
+
 {% extends "base.html" %}
 
 {% block title %}{% if post %}Edit Post{% else %}Create Post{% endif %}{% endblock %}
 
 {% block extra_head %}
 
+<style>
+    #editor {
+        border: 1px solid #ccc;
+        padding: 10px;
+        min-height: 200px;
+    }
+</style>
 {% endblock %}
 
 {% block content %}
 <div class="container">
     <h1>{% if post %}Edit{% else %}Create a New{% endif %} Post</h1>
-    <form method="post" onsubmit="tinyMCE.triggerSave(); return true;">
+    <form method="post" id="post-form">
         {{ form.hidden_tag() }}
         <div class="form-group">
             {{ form.title.label }}
@@ -17,11 +52,11 @@
         </div>
         <div class="form-group">
             {{ form.content.label }}
+{#            <div id="editor"></div>#}
             {{ form.content(class="form-control") }}
         </div>
         <div id="word-count"></div>
-        {{ form.submit(class="btn btn-primary") }}
+        {{ form.submit(class="btn btn-primary mt-3") }}
     </form>
 </div>
 {% endblock %}
-

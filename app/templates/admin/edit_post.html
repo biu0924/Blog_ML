@@ -1,7 +1,9 @@
 {% extends "admin/admin_base.html" %}
 {% block content %}
 <h1>Edit Post</h1>
-<a href="{{ url_for('admin.admin_index') }}" class="btn btn-primary">Admin Home</a>
+<div class="text-center mb-3">
+  <a href="{{ url_for('admin.post_list') }}" class="btn btn-primary">Back</a>
+</div>
 
 <form method="post">
     {{ form.hidden_tag() }}
@@ -16,3 +18,78 @@
     <input type="submit" value="Update" class="btn btn-primary">
 </form>
 {% endblock %}
+
+
+{##}
+{#{% extends "base.html" %}#}
+{##}
+{#{% block extra_head %}#}
+{#<script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>#}
+{#<script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>#}
+{#<script src="https://unpkg.com/slate@0.66.5/dist/slate.js"></script>#}
+{#<script src="https://unpkg.com/slate-react@0.66.5/dist/slate-react.js"></script>#}
+{#<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>#}
+{#{% endblock %}#}
+{##}
+{#{% block content %}#}
+{#<div class="container">#}
+{#    <h1>Edit Post</h1>#}
+{##}
+{#    <form method="POST">#}
+{#        {{ form.hidden_tag() }}#}
+{##}
+{#        <div class="form-group">#}
+{#            {{ form.title.label(class="form-control-label") }}#}
+{#            {{ form.title(class="form-control") }}#}
+{#            {% for error in form.title.errors %}#}
+{#                <span class="text-danger">{{ error }}</span>#}
+{#            {% endfor %}#}
+{#        </div>#}
+{##}
+{#        <div class="form-group">#}
+{#            {{ form.content.label }}#}
+{#            <div id="editor"></div>#}
+{#            {{ form.content(style="display: none;") }}#}
+{#            {% for error in form.content.errors %}#}
+{#                <span class="text-danger">{{ error }}</span>#}
+{#            {% endfor %}#}
+{#        </div>#}
+{##}
+{#        {{ form.submit(class="btn btn-primary") }}#}
+{#    </form>#}
+{#</div>#}
+{##}
+{#<script type="text/babel">#}
+{#const { createEditor, Transforms } = slate;#}
+{#const { Slate, Editable, withReact } = SlateReact;#}
+{##}
+{#const initialValue = [#}
+{#    {#}
+{#        type: 'paragraph',#}
+{#        children: [{ text: {{ form.content.data|tojson|safe }} }],#}
+{#    },#}
+{#];#}
+{##}
+{#function SlateEditor() {#}
+{#    const [editor] = React.useState(() => withReact(createEditor()));#}
+{#    const [value, setValue] = React.useState(initialValue);#}
+{##}
+{#    return (#}
+{#        <Slate#}
+{#            editor={editor}#}
+{#            value={value}#}
+{#            onChange={newValue => {#}
+{#                setValue(newValue);#}
+{#                document.getElementById('content').value = newValue.map(n => n.children.map(c => c.text).join('\n')).join('\n');#}
+{#            }}#}
+{#        >#}
+{#            <Editable#}
+{#                placeholder="Enter some text..."#}
+{#            />#}
+{#        </Slate>#}
+{#    );#}
+{#}#}
+{##}
+{#ReactDOM.render(<SlateEditor />, document.getElementById('editor'));#}
+{#</script>#}
+{#{% endblock %}#}

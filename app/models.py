@@ -3,6 +3,11 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from datetime import datetime
 
+'''
+数据模型类，定义数据的描述等信息。
+Flask 中，通常与 SQLAlchemy 结合使用，导包操作在 __init__.py 中。
+'''
+
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), index=True, unique=True)
@@ -13,8 +18,6 @@ class User(UserMixin, db.Model):
     likes = db.relationship('Like', backref='user', lazy='dynamic')
     avatar = db.Column(db.String(255), default='default.jpg')
     date_joined = db.Column(db.DateTime, default=datetime.utcnow)
-
-    is_admin = db.Column(db.Boolean, default=False)
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
@@ -50,8 +53,6 @@ class Comment(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     post_id = db.Column(db.Integer, db.ForeignKey('blog_post.id'), nullable=False)
     parent_id = db.Column(db.Integer, db.ForeignKey('comment.id'))
-    # likes = db.Column(db.Integer, default=0)
-    # dislikes = db.Column(db.Integer, default=0)
 
     user = db.relationship('User', backref=db.backref('comments', lazy='dynamic'))
     post = db.relationship('BlogPost', backref=db.backref('comments', lazy='dynamic'))

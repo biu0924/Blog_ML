@@ -17,7 +17,7 @@ def create_app():
     '''
     一个 Flask 工厂函数，
     '''
-    app = Flask(__name__)
+    app = Flask(__name__, static_folder=Config.STATIC_FOLDER)
     app.config.from_object(Config)# 加载配置
 
     # 初始化

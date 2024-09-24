@@ -11,7 +11,7 @@ admin = Blueprint('admin', __name__)
 @admin.route('/admin')
 @login_required
 def admin_index():
-    if not current_user.is_admin:
+    if not current_user.is_admin:# 检查是否是管理员
         flash('You do not have permission to access this page.', 'danger')
         return redirect(url_for('blog.index'))
     return render_template('admin/index.html')
@@ -70,6 +70,7 @@ def edit_post(id):
     post = BlogPost.query.get_or_404(id)
     form = PostForm(obj=post)
     if form.validate_on_submit():
+        # 将表单数据更新到博文对象
         form.populate_obj(post)
         db.session.commit()
         flash('Post updated successfully.', 'success')

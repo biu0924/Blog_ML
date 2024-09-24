@@ -1,12 +1,17 @@
-from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
-from wtforms import StringField, TextAreaField, SubmitField, PasswordField
+from wtforms import StringField, BooleanField, TextAreaField, SubmitField, PasswordField
 from wtforms.validators import DataRequired, Email, EqualTo, ValidationError
 from app.models import User
-
 from flask_wtf import FlaskForm
-from wtforms import StringField, BooleanField
-from wtforms.validators import DataRequired, Email
+
+'''
+该模块用于处理 web 表单。这个文件通常与 Flask-WTF(一个 Flask 的表单验证拓展) 结合使用。
+1.定义字段，如 title, content, submit
+2.验证规则, validators 的内容
+3.表单提交 submit
+4.验证反馈
+'''
+
 class PostForm(FlaskForm):
     title = StringField("Title", validators=[DataRequired()])
     content = TextAreaField("Content", validators=[DataRequired()])
@@ -39,7 +44,6 @@ class CommentForm(FlaskForm):
 class ReplyForm(FlaskForm):
     body = TextAreaField('Reply', validators=[DataRequired()])
     submit = SubmitField('Post Reply')
-
 
 class UserForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])

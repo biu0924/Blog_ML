@@ -1,8 +1,9 @@
 {% extends "admin/admin_base.html" %}
 {% block content %}
 <h1>Post Management</h1>
-<a href="{{ url_for('admin.admin_index') }}" class="btn btn-primary">Admin Home</a>
-
+<div class="text-center mb-3">
+  <a href="{{ url_for('admin.admin_index') }}" class="btn btn-primary">Back</a>
+</div>
 <table class="table">
     <thead>
         <tr>

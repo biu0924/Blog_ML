@@ -1,54 +1,13 @@
-{#<!-- templates/admin/stats.html -->#}
-{#{% extends "admin/admin_base.html" %}#}
-{#{% block content %}#}
-{#<h1>Site Statistics</h1>#}
-{#<a href="{{ url_for('admin.admin_index') }}" class="btn btn-primary">Admin Home</a>#}
-{##}
-{#<div class="row">#}
-{#    <div class="col-md-4">#}
-{#        <h3>Overall Stats</h3>#}
-{#        <ul>#}
-{#            <li>Total Users: {{ total_users }}</li>#}
-{#            <li>Total Posts: {{ total_posts }}</li>#}
-{#            <li>Total Comments: {{ total_comments }}</li>#}
-{#        </ul>#}
-{#    </div>#}
-{#    <div class="col-md-4">#}
-{#        <h3>Last 7 Days</h3>#}
-{#        <ul>#}
-{#            <li>New Users: {{ new_users_last_week }}</li>#}
-{#            <li>New Posts: {{ new_posts_last_week }}</li>#}
-{#        </ul>#}
-{#    </div>#}
-{#</div>#}
-{#<div class="row mt-4">#}
-{#    <div class="col-md-6">#}
-{#        <h3>Most Active Users</h3>#}
-{#        <ol>#}
-{#            {% for user, post_count in active_users %}#}
-{#            <li>{{ user.username }} ({{ post_count }} posts)</li>#}
-{#            {% endfor %}#}
-{#        </ol>#}
-{#    </div>#}
-{#    <div class="col-md-6">#}
-{#        <h3>Most Popular Posts</h3>#}
-{#        <ol>#}
-{#            {% for post, comment_count in popular_posts %}#}
-{#            <li>#}
-{#                <a href="{{ url_for('blog.post', id=post.id) }}">{{ post.title }}</a>#}
-{#                ({{ comment_count }} comments)#}
-{#            </li>#}
-{#            {% endfor %}#}
-{#        </ol>#}
-{#    </div>#}
-{#</div>#}
-{#{% endblock %}#}
 
 
 {% extends "admin/admin_base.html" %}
 {% block content %}
 
 <h1 class="mb-4">Site Statistics</h1>
+
+<div class="text-center mb-3">
+  <a href="{{ url_for('admin.admin_index') }}" class="btn btn-primary">Back</a>
+</div>
 
 <div class="row">
     <div class="col-md-6 mb-4">

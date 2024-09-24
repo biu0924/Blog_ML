@@ -1,0 +1,3 @@
+dockerfiles/.env
+.venv
+__pycache__
