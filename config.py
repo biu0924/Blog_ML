@@ -23,7 +23,7 @@ class Config:
     '''
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'you-will-never-guess'
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
-        'postgresql://root:123456@localhost:5432/blog'
+        'postgresql://root:123456@localhost:5432/blogdb'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     UPLOAD_FOLDER = os.path.join(basedir, 'app', 'static', 'uploads')
     STATIC_FOLDER = os.path.join(basedir, 'app', 'static')

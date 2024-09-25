@@ -1,8 +1,0 @@
-# 忽略其他不必要的文件
-.venv
-__pycache__
-*.pyc
-*.pyo
-*.pyd
-.git
-dockerfiles/.env
